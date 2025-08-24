@@ -1,0 +1,41 @@
+# .github/workflows/deploy.yml
+# This workflow automates the deployment of a simple website to GitHub Pages.
+
+# Sets the name of your workflow. This name will appear on the GitHub Actions page.
+name: Deploy to GitHub Pages
+
+# Configures the trigger for the workflow.
+# This workflow will run on every push to the 'main' branch.
+on:
+  push:
+    branches:
+      - main
+
+# Defines the jobs that will run as part of this workflow.
+jobs:
+  # The 'build-and-deploy' job is responsible for building and deploying your site.
+  build-and-deploy:
+    # Specifies the runner environment for the job. 'ubuntu-latest' is a standard Linux runner.
+    runs-on: ubuntu-latest
+    
+    # Specifies the steps that the job will execute.
+    steps:
+      # Step 1: Checks out your repository code.
+      # This action checks out your repository under $GITHUB_WORKSPACE, so your workflow can access it.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Configures and deploys the project to GitHub Pages.
+      # This action sets up the GitHub Pages environment and deploys your site from the 'public' directory.
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          # Automatically generated token for the repository.
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          # The directory containing the static files you want to deploy.
+          # The image specifies that the public directory should contain the files.
+          publish_dir: ./public
+          # The branch where the GitHub Pages site will be deployed.
+          # The action will create this branch if it doesn't exist.
+          publish_branch: gh-pages
+
