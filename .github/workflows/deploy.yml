@@ -18,6 +18,13 @@ jobs:
     # Specifies the runner environment for the job. 'ubuntu-latest' is a standard Linux runner.
     runs-on: ubuntu-latest
     
+    # Grants permissions for the GITHUB_TOKEN to allow it to push to the repository.
+    # The 'pages: write' permission is needed for the action to create and update the gh-pages branch.
+    # The 'contents: write' permission is a general-purpose permission for modifying the repository content.
+    permissions:
+      pages: write
+      contents: write
+    
     # Specifies the steps that the job will execute.
     steps:
       # Step 1: Checks out your repository code.
@@ -38,5 +45,4 @@ jobs:
           # The branch where the GitHub Pages site will be deployed.
           # The action will create this branch if it doesn't exist.
           publish_branch: gh-pages
-
 
